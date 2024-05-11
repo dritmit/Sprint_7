@@ -1,5 +1,5 @@
 import allure
-import data
+import helpers
 import scooter_api
 
 
@@ -8,10 +8,10 @@ class TestDeleteCourier:
     @allure.title("Проверка успешного удаления курьера")
     @allure.description("Проверка статуса ответа и тела ответа")
     def test_delete_courier_success(self):
-        body = data.Data.NEW_COURIER_BODY
-        scooter_api.ScooterApi.create_courier(body)
-        courier_login_response = scooter_api.ScooterApi.courier_login(body)
-        courier_id = courier_login_response.json()["id"]
+        courier_data = helpers.generate_new_courier_data()
+        courier_login_body = helpers.register_new_courier_and_return_login_password(courier_data)
+        courier_login_response = scooter_api.ScooterApi.courier_login(courier_login_body)
+        courier_id = courier_login_response.json()['id']
         courier_delete_response = scooter_api.ScooterApi.delete_courier(str(courier_id))
         assert courier_delete_response.status_code == 200 and courier_delete_response.json() == {"ok": True}
 

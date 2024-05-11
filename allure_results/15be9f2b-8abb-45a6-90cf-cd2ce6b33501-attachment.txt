@@ -1,2 +1,0 @@
-{'login': 'wbpapgdgmb', 'password': 'dbibsqogxl'}
-{'courier_id': 303692, 'order_id': 911392}
